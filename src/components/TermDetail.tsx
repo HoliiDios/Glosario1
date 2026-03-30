@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import type { GlossaryTerm } from '../types';
+import type { LegalTerm } from '../types';
 
 interface TermDetailProps {
-  term: GlossaryTerm;
+  term: LegalTerm;
   relatedSlugByName: (name: string) => string | null;
 }
 
@@ -12,27 +12,27 @@ export function TermDetail({ term, relatedSlugByName }: TermDetailProps) {
       <header>
         <h1>{term.term}</h1>
         <p className="entry-meta">
-          <strong>{term.type}</strong> · <span>{term.category}</span>
+          <strong>{term.grammaticalType}</strong> · <span>{term.legalField}</span>
         </p>
       </header>
 
       <section>
         <h2>Definición principal</h2>
-        <p>{term.definition}</p>
+        <p>{term.mainDefinition}</p>
       </section>
 
       <section>
-        <h2>Definiciones adicionales</h2>
+        <h2>Definiciones secundarias</h2>
         <ol>
-          {term.definitions.map((item) => (
+          {term.secondaryDefinitions.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ol>
       </section>
 
       <section>
-        <h2>Etimología / origen</h2>
-        <p>{term.origin}</p>
+        <h2>Etimología</h2>
+        <p>{term.etymology}</p>
       </section>
 
       <section className="entry-columns">
@@ -53,9 +53,7 @@ export function TermDetail({ term, relatedSlugByName }: TermDetailProps) {
           {term.relatedTerms.map((name) => {
             const slug = relatedSlugByName(name);
             return (
-              <li key={name}>
-                {slug ? <Link to={`/term/${slug}`}>{name}</Link> : <span>{name}</span>}
-              </li>
+              <li key={name}>{slug ? <Link to={`/term/${slug}`}>{name}</Link> : <span>{name}</span>}</li>
             );
           })}
         </ul>

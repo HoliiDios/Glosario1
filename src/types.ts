@@ -1,14 +1,14 @@
-export interface GlossaryTerm {
+export interface LegalTerm {
   term: string;
   slug: string;
-  type: string;
-  definition: string;
-  definitions: string[];
+  grammaticalType: string;
+  legalField: string;
+  mainDefinition: string;
+  secondaryDefinitions: string[];
   synonyms: string[];
   antonyms: string[];
+  etymology: string;
   relatedTerms: string[];
-  origin: string;
-  category: string;
 }
 
 export interface AcronymMeaning {
@@ -18,9 +18,11 @@ export interface AcronymMeaning {
 
 export type AcronymDictionary = Record<string, AcronymMeaning[]>;
 
+export type MatchReason = 'exact' | 'infinitive' | 'synonym' | 'fuzzy';
+
 export interface SearchResult {
-  term: GlossaryTerm;
-  reason: 'exact' | 'synonym' | 'lemma' | 'partial' | 'fuzzy';
+  term: LegalTerm;
+  reason: MatchReason;
   score: number;
   matchedBy: string;
 }

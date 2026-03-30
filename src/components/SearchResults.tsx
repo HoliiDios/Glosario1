@@ -7,15 +7,14 @@ interface SearchResultsProps {
 
 const reasonLabels: Record<SearchResult['reason'], string> = {
   exact: 'Coincidencia exacta',
+  infinitive: 'Coincidencia por infinitivo',
   synonym: 'Coincidencia por sinónimo',
-  lemma: 'Coincidencia por infinitivo',
-  partial: 'Coincidencia parcial',
   fuzzy: 'Coincidencia aproximada',
 };
 
 export function SearchResults({ results }: SearchResultsProps) {
   if (!results.length) {
-    return <p className="empty-state">No se encontraron resultados. Prueba con otra variante.</p>;
+    return <p className="empty-state">No se encontraron coincidencias. Intenta con otra forma del término.</p>;
   }
 
   return (
@@ -26,12 +25,12 @@ export function SearchResults({ results }: SearchResultsProps) {
             <h3>
               <Link to={`/term/${term.slug}`}>{term.term}</Link>
             </h3>
-            <p>{term.definition}</p>
+            <p>{term.mainDefinition}</p>
           </div>
           <div className="result-meta">
             <span>{reasonLabels[reason]}</span>
             <span>Score: {score}</span>
-            <span>Match: {matchedBy}</span>
+            <span>Coincidió con: {matchedBy}</span>
           </div>
         </li>
       ))}

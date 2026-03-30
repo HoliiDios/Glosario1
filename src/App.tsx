@@ -19,7 +19,7 @@ function AppShell() {
         <Link to="/" className="brand">
           Glosario Jurídico
         </Link>
-        <SearchBar initialValue={query} onSearch={handleSearch} />
+        <SearchBar value={query} onChange={setQuery} onSearch={handleSearch} />
       </header>
 
       <main className="content">

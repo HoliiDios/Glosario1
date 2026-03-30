@@ -1,6 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
 import { TermDetail } from '../components/TermDetail';
-import { getAllTerms, getTermBySlug } from '../lib/searchEngine';
+import { getAllTerms, getTermBySlug } from '../utils/searchEngine';
+
+const plain = (value: string): string =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
 
 export function TermPage() {
   const { slug = '' } = useParams();
@@ -17,19 +23,7 @@ export function TermPage() {
   }
 
   const relatedSlugByName = (name: string): string | null => {
-    const normalizedName = name
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase();
-
-    const related = getAllTerms().find((item) => {
-      const normalizedTerm = item.term
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
-      return normalizedTerm === normalizedName;
-    });
-
+    const related = getAllTerms().find((item) => plain(item.term) === plain(name));
     return related?.slug ?? null;
   };
 

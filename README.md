@@ -1,46 +1,50 @@
-# Glosario Jurídico
+# Legal Glossary · Glosario Jurídico
 
-Aplicación web tipo diccionario jurídico con búsqueda lingüística avanzada.
+Aplicación web profesional de referencia jurídica con búsqueda lingüística inteligente y navegación tipo diccionario.
 
-## Características
+## Características principales
 
-- Búsqueda inteligente con motor de ranking por señales lingüísticas:
-  1. Coincidencia exacta de lema/término
-  2. Coincidencia por sinónimos
-  3. Coincidencia morfológica (conjugación → infinitivo)
-  4. Coincidencia parcial
-  5. Coincidencia aproximada (Levenshtein + Dice trigram)
-- Normalización robusta de acentos, mayúsculas, espacios y signos.
-- Variantes de consulta (lemas, singularización básica, tokens).
-- Reconocimiento de acrónimos configurable y multivalor (`HR`, `DDHH`, `ONU`).
-- Páginas de detalle por término con ruta SPA: `/term/:slug`.
-- Diseño minimalista y responsive inspirado en diccionario.
-- Datos locales estructurados y reutilizables para futura API lingüística.
+- Dataset académico local con **51 términos legales** (penal, civil, procesal, constitucional y derechos humanos).
+- Motor de búsqueda robusto con:
+  - normalización de acentos y mayúsculas,
+  - coincidencia parcial,
+  - coincidencia por sinónimos,
+  - lematización heurística de verbos (conjugado → infinitivo),
+  - fuzzy search con Levenshtein.
+- Priorización de resultados:
+  1. exacto,
+  2. infinitivo,
+  3. sinónimo,
+  4. fuzzy.
+- Motor de acrónimos configurable y multivalor (`HR`, `DDHH`, `ONU`, `CIDH`, etc.).
+- Routing SPA:
+  - `/` búsqueda,
+  - `/term/:slug` ficha terminológica.
 
 ## Stack
 
 - React + TypeScript + Vite
 - React Router
-- Datos locales JSON-like en módulos TypeScript
+- Datos y lógica en frontend (sin backend)
 
-## Desarrollo
+## Estructura
+
+- `src/components/*`: componentes reutilizables de UI.
+- `src/data/terms.ts`: base terminológica jurídica.
+- `src/data/acronyms.ts`: configuración de acrónimos.
+- `src/utils/searchEngine.ts`: motor de búsqueda, ranking y normalización.
+- `src/pages/*`: páginas principales.
+
+## Ejecución
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build producción
+## Build
 
 ```bash
 npm run build
 npm run preview
 ```
-
-## Estructura
-
-- `src/lib/searchEngine.ts`: normalización, análisis de consulta, lematización, scoring híbrido y ranking.
-- `src/data/terms.ts`: base de términos jurídicos.
-- `src/data/acronyms.ts`: configuración de acrónimos multivalor.
-- `src/components/*`: componentes reutilizables.
-- `src/pages/*`: vistas de inicio y detalle.
